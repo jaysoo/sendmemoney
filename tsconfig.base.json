@@ -14,7 +14,51 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sendmemoney/api-donations": ["libs/api-donations/src/index.ts"],
+      "@sendmemoney/api-file-upload": ["libs/api-file-upload/src/index.ts"],
+      "@sendmemoney/api-fundraisers": ["libs/api-fundraisers/src/index.ts"],
+      "@sendmemoney/data-access-api": ["libs/data-access-api/src/index.ts"],
+      "@sendmemoney/mobile-screen-details": [
+        "libs/mobile-screen-details/src/index.ts"
+      ],
+      "@sendmemoney/mobile-screen-donate": [
+        "libs/mobile-screen-donate/src/index.ts"
+      ],
+      "@sendmemoney/mobile-screen-landing": [
+        "libs/mobile-screen-landing/src/index.ts"
+      ],
+      "@sendmemoney/shared-contexts/api-context": [
+        "libs/shared-contexts/api-context/src/index.ts"
+      ],
+      "@sendmemoney/shared-formatters/currency": [
+        "libs/shared-formatters/currency/src/index.ts"
+      ],
+      "@sendmemoney/shared-hooks/use-boolean": [
+        "libs/shared-hooks/use-boolean/src/index.ts"
+      ],
+      "@sendmemoney/shared-models/donation": [
+        "libs/shared-models/donation/src/index.ts"
+      ],
+      "@sendmemoney/shared-models/fundraiser": [
+        "libs/shared-models/fundraiser/src/index.ts"
+      ],
+      "@sendmemoney/web-page-donate": ["libs/web-page-donate/src/index.ts"],
+      "@sendmemoney/web-page-landing": ["libs/web-page-landing/src/index.ts"],
+      "@sendmemoney/web-page-my-fundraisers": [
+        "libs/web-page-my-fundraisers/src/index.ts"
+      ],
+      "@sendmemoney/web-page-new-fundraiser": [
+        "libs/web-page-new-fundraiser/src/index.ts"
+      ],
+      "@sendmemoney/web-page-view-fundraiser": [
+        "libs/web-page-view-fundraiser/src/index.ts"
+      ],
+      "@sendmemoney/web-ui-fundraiser-paper": [
+        "libs/web-ui-fundraiser-paper/src/index.ts"
+      ],
+      "@sendmemoney/web-ui-layout": ["libs/web-ui-layout/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

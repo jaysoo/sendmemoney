@@ -1,94 +1,164 @@
+# SendMeMoney
 
+SendMeMoney is a demo fundraiser service similar to GoFundMe. It consists of three apps:
 
-# Commerce
+1. Browser app using [React](https://reactjs.org/)
+2. Mobile app using [React Native](https://reactnative.dev/)
+3. Backend (API) app using [NestJS](https://nestjs.com/) and [MongoDB](https://www.mongodb.com/)
 
-This project was generated using [Nx](https://nx.dev).
+The workspace is created with [Nx](https://nx.dev), and all apps are run and built with Nx as well.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+⚠️ WARNING - These apps are not production ready. The donations are all fake, and SendMeMoney does not use a payment service behind the scene. There is no authorization/permissions built into the Backend.
 
-🔎 **Smart, Extensible Build Framework**
+## Showcase
 
-## Adding capabilities to your workspace
+**Browser App**
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+The browser app allows users to view fundraisers, as wel as create new ones (if they are logged in). Authentication is handled using Auth0.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+![](./screenshot.png)
 
-Below are our core plugins:
+**Mobile App**
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+The mobile app is limited in features, and users are only able to view and donate to existing fundraisers.
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+<img src="./mobile-screenshot.jpg" alt="" height="600"/>
 
-## Generate an application
+## Architecture
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+The three apps are in the `apps` folder:
 
-> You can use any of the plugins above to generate applications as well.
+1. Web - `apps/web-app`
+2. Mobile - `apps/mobile-app`
+3. Backend - `apps/backend-app`
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+These apps are thin shells around feature libs (pages for web, screens for mobile, and API for backend).
 
-## Generate a library
+Additionally, there are shared libs that are used by both web and mobile apps.
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+- `libs/data-access-api` -- React hooks for make API calls
+- `libs/shared-contexts/api-context` -- React context provider and hooks for setting and getting API settings
+- `libs/shared-hooks/use-boolean` -- React hook for toggles
+- `libs/shared-formatters/currency` -- functions for formatting currency (could be used in Node as well)
 
-> You can also use any of the plugins above to generate libraries as well.
+As well as shared interface libs used by all three apps.
 
-Libraries are shareable across libraries and applications. They can be imported from `@commerce/mylib`.
+- `libs/shared-models/donation`
+- `libs/shared-models/fundraiser`
 
-## Development server
+Use `npx nx dep-graph` to see the full project graph.
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+![](./dep-graph.png)
 
-## Code scaffolding
+## Prerequisites
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+There are two prerequisites: **Docker** and **Auth0**.
 
-## Build
+Make sure you have [Docker](https://www.docker.com/) installed and running on your machine. This is needed to run the Mongo database for the backend.
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+You also need an account with [Auth0](https://auth0.com/), and a new Auth0 app to use with SendMeMoney.
 
-## Running unit tests
+In your Auth0 app settings, use the following setting in the _Application URLs section_.
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+**Allowed Callback URLs:**
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+```
+http://localhost:4200, http://localhost:4200/new-fundraiser
+```
 
-## Running end-to-end tests
+**Allowed Logout URLs:**
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+```
+http://localhost:4200
+```
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+Your settings should look like this.
 
-## Understand your workspace
+![](./auth0.png)
 
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
+Make sure to save!
 
-## Further help
+## Getting Started
 
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+First, clone the repo.
 
+```bash
+git clone https://github.com/jaysoo/sendmemoney.git
+cd sendmemoney
+```
 
+Next, copy the `.env.example` file to `.env`
 
-## ☁ Nx Cloud
+```bash
+cp .env.example .env
+```
 
-### Distributed Computation Caching & Distributed Task Execution
+Update the `.env` file with your Auth0 app info. It should look something like this.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+```
+NX_AUTH0_CLIENT_DOMAIN=someone.auth0.com
+NX_AUTH0_CLIENT_ID=99999999999999999999999999999999
+NX_AUTH0_CLIENT_SECRET=0000000000000__777777777_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA_BBBB
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+# This is relative to the workspace root
+NX_UPLOAD_DIRECTORY=tmp/uploads
 
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+NX_BACKEND_PORT=3333
+NX_MONGO_HOST=localhost
+NX_MONGO_DATABASE=sendmemoney
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+```
+
+Next, install dependencies.
+
+```bash
+npm install
+```
+
+Lastly, start the MongoDB container.
+
+```bash
+npx nx mongo-start backend-app
+```
+
+**Note:** The command above can be found in `workspace.json` under `"backend"` project. It pulls the latest MongoDB image and starts the container.
+
+## Running Apps Locally
+
+Nx `serve` command is used to run the Backend and Web apps.
+
+```bash
+npx nx serve backend-app
+npx nx serve web-app
+
+# Or you can run them in parallel with run-many
+npx nx run-many --target serve --projects backend-app,web-app --parallel
+```
+
+Your browser should open a new tab for the running web app (http://localhost:4200).
+
+For the Native app, you need to use `run-ios` or `run-android` depending on the platform you want to run in.
+
+```bash
+npx nx run-ios native-app
+npx nx run-android native-app
+```
+
+## Testing and Linting
+
+To run all the unit tests use:
+
+```bash
+npm run test
+npm run lint
+```
+
+It will take about 30-60 seconds test and lint. Subsequent runs will be much faster due to Nx's task cache feature. Nx will only re-run tests for projects that have been updated.
+
+## Next Steps
+
+There are a few more things to try in this workspace.
+
+1. Wire up Stripe payments for a fuller experience. You can use the test `4242 4242 4242 4242` card number to test.
+2. Allow users to authenticate in mobile app to create and view their fundraisers.
+3. Wire up e2e tests for web and mobile. This isn't done currently.

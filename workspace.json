@@ -1,22 +1,481 @@
 {
   "version": 2,
   "projects": {
-    "web": {
-      "root": "apps/web",
-      "sourceRoot": "apps/web/src",
+    "api-donations": {
+      "root": "libs/api-donations",
+      "sourceRoot": "libs/api-donations/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-donations/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-donations"],
+          "options": {
+            "jestConfig": "libs/api-donations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-file-upload": {
+      "root": "libs/api-file-upload",
+      "sourceRoot": "libs/api-file-upload/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-file-upload/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-file-upload"],
+          "options": {
+            "jestConfig": "libs/api-file-upload/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-fundraisers": {
+      "root": "libs/api-fundraisers",
+      "sourceRoot": "libs/api-fundraisers/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-fundraisers/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api-fundraisers"],
+          "options": {
+            "jestConfig": "libs/api-fundraisers/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "backend-app": {
+      "root": "apps/backend-app",
+      "sourceRoot": "apps/backend-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/backend-app",
+            "main": "apps/backend-app/src/main.ts",
+            "tsConfig": "apps/backend-app/tsconfig.app.json",
+            "assets": ["apps/backend-app/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/backend-app/src/environments/environment.ts",
+                  "with": "apps/backend-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "backend-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/backend-app/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/backend-app"],
+          "options": {
+            "jestConfig": "apps/backend-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "mongo-start": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "bash apps/backend-app/scripts/mongodb-start.sh"
+          }
+        },
+        "mongo-clear": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "bash apps/backend-app/scripts/mongodb-drop-database.sh"
+          }
+        },
+        "mongo-stop": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "bash apps/backend-app/scripts/mongodb-stop.sh"
+          }
+        }
+      }
+    },
+    "data-access-api": {
+      "root": "libs/data-access-api",
+      "sourceRoot": "libs/data-access-api/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/data-access-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/data-access-api"],
+          "options": {
+            "jestConfig": "libs/data-access-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mobile-app": {
+      "root": "apps/mobile-app",
+      "sourceRoot": "apps/mobile-app/src",
+      "projectType": "application",
+      "targets": {
+        "start": {
+          "executor": "@nrwl/react-native:start",
+          "options": {
+            "port": 8081
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx start mobile-app"
+          }
+        },
+        "run-ios": {
+          "executor": "@nrwl/react-native:run-ios",
+          "options": {}
+        },
+        "bundle-ios": {
+          "executor": "@nrwl/react-native:bundle",
+          "outputs": ["apps/mobile-app/build"],
+          "options": {
+            "entryFile": "apps/mobile-app/src/main.tsx",
+            "platform": "ios",
+            "bundleOutput": "dist/apps/mobile-app/ios/main.bundle"
+          }
+        },
+        "run-android": {
+          "executor": "@nrwl/react-native:run-android",
+          "options": {}
+        },
+        "build-android": {
+          "executor": "@nrwl/react-native:build-android",
+          "outputs": [
+            "apps/mobile-app/android/app/build/outputs/bundle",
+            "apps/mobile-app/android/app/build/outputs/apk"
+          ],
+          "options": {}
+        },
+        "bundle-android": {
+          "executor": "@nrwl/react-native:bundle",
+          "options": {
+            "entryFile": "apps/mobile-app/src/main.tsx",
+            "platform": "android",
+            "bundleOutput": "dist/apps/mobile-app/android/main.bundle"
+          }
+        },
+        "sync-deps": {
+          "executor": "@nrwl/react-native:sync-deps",
+          "options": {}
+        },
+        "ensure-symlink": {
+          "executor": "@nrwl/react-native:ensure-symlink",
+          "options": {}
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/mobile-app/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/mobile-app"],
+          "options": {
+            "jestConfig": "apps/mobile-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mobile-app-e2e": {
+      "root": "apps/mobile-app-e2e",
+      "sourceRoot": "apps/mobile-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "build-ios": {
+          "executor": "@nrwl/detox:build",
+          "options": {
+            "detoxConfiguration": "ios.sim.debug"
+          },
+          "configurations": {
+            "production": {
+              "detoxConfiguration": "ios.sim.release"
+            }
+          }
+        },
+        "test-ios": {
+          "executor": "@nrwl/detox:test",
+          "options": {
+            "detoxConfiguration": "ios.sim.debug"
+          },
+          "configurations": {
+            "production": {
+              "detoxConfiguration": "ios.sim.release"
+            }
+          }
+        },
+        "build-android": {
+          "executor": "@nrwl/detox:build",
+          "options": {
+            "detoxConfiguration": "android.emu.debug"
+          },
+          "configurations": {
+            "production": {
+              "detoxConfiguration": "android.emu.release"
+            }
+          }
+        },
+        "test-android": {
+          "executor": "@nrwl/detox:test",
+          "options": {
+            "detoxConfiguration": "android.emu.debug"
+          },
+          "configurations": {
+            "production": {
+              "detoxConfiguration": "android.emu.release"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/mobile-app-e2e/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "mobile-screen-details": {
+      "root": "libs/mobile-screen-details",
+      "sourceRoot": "libs/mobile-screen-details/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/mobile-screen-details/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mobile-screen-details"],
+          "options": {
+            "jestConfig": "libs/mobile-screen-details/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mobile-screen-donate": {
+      "root": "libs/mobile-screen-donate",
+      "sourceRoot": "libs/mobile-screen-donate/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/mobile-screen-donate/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mobile-screen-donate"],
+          "options": {
+            "jestConfig": "libs/mobile-screen-donate/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mobile-screen-landing": {
+      "root": "libs/mobile-screen-landing",
+      "sourceRoot": "libs/mobile-screen-landing/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/mobile-screen-landing/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mobile-screen-landing"],
+          "options": {
+            "jestConfig": "libs/mobile-screen-landing/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-contexts-api-context": {
+      "root": "libs/shared-contexts/api-context",
+      "sourceRoot": "libs/shared-contexts/api-context/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared-contexts/api-context/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-contexts/api-context"],
+          "options": {
+            "jestConfig": "libs/shared-contexts/api-context/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-formatters-currency": {
+      "root": "libs/shared-formatters/currency",
+      "sourceRoot": "libs/shared-formatters/currency/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-formatters/currency/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-formatters/currency"],
+          "options": {
+            "jestConfig": "libs/shared-formatters/currency/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-hooks-use-boolean": {
+      "root": "libs/shared-hooks/use-boolean",
+      "sourceRoot": "libs/shared-hooks/use-boolean/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-hooks/use-boolean/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-hooks/use-boolean"],
+          "options": {
+            "jestConfig": "libs/shared-hooks/use-boolean/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-models-donation": {
+      "root": "libs/shared-models/donation",
+      "sourceRoot": "libs/shared-models/donation/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-models/donation/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-models/donation"],
+          "options": {
+            "jestConfig": "libs/shared-models/donation/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-models-fundraiser": {
+      "root": "libs/shared-models/fundraiser",
+      "sourceRoot": "libs/shared-models/fundraiser/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared-models/fundraiser/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-models/fundraiser"],
+          "options": {
+            "jestConfig": "libs/shared-models/fundraiser/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-app": {
+      "root": "apps/web-app",
+      "sourceRoot": "apps/web-app/src",
       "projectType": "application",
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/web",
-            "index": "apps/web/src/index.html",
-            "main": "apps/web/src/main.tsx",
-            "polyfills": "apps/web/src/polyfills.ts",
-            "tsConfig": "apps/web/tsconfig.app.json",
-            "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
-            "styles": ["apps/web/src/styles.scss"],
+            "outputPath": "dist/apps/web-app",
+            "index": "apps/web-app/src/index.html",
+            "main": "apps/web-app/src/main.tsx",
+            "polyfills": "apps/web-app/src/polyfills.ts",
+            "tsConfig": "apps/web-app/tsconfig.app.json",
+            "assets": [
+              "apps/web-app/src/favicon.ico",
+              "apps/web-app/src/assets"
+            ],
+            "styles": ["apps/web-app/src/styles.scss"],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -24,8 +483,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/web/src/environments/environment.ts",
-                  "with": "apps/web/src/environments/environment.prod.ts"
+                  "replace": "apps/web-app/src/environments/environment.ts",
+                  "with": "apps/web-app/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -48,12 +507,14 @@
         "serve": {
           "executor": "@nrwl/web:dev-server",
           "options": {
-            "buildTarget": "web:build",
-            "hmr": true
+            "buildTarget": "web-app:build",
+            "hmr": true,
+            "open": true,
+            "proxyConfig": "apps/web-app/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "buildTarget": "web:build:production",
+              "buildTarget": "web-app:build:production",
               "hmr": false
             }
           }
@@ -61,41 +522,196 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["apps/web-app/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/web"],
+          "outputs": ["coverage/apps/web-app"],
           "options": {
-            "jestConfig": "apps/web/jest.config.js",
+            "jestConfig": "apps/web-app/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
     },
-    "web-e2e": {
-      "root": "apps/web-e2e",
-      "sourceRoot": "apps/web-e2e/src",
+    "web-app-e2e": {
+      "root": "apps/web-app-e2e",
+      "sourceRoot": "apps/web-app-e2e/src",
       "projectType": "application",
       "targets": {
         "e2e": {
           "executor": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/web-e2e/cypress.json",
-            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
-            "devServerTarget": "web:serve"
+            "cypressConfig": "apps/web-app-e2e/cypress.json",
+            "tsConfig": "apps/web-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "web-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "web:serve:production"
+              "devServerTarget": "web-app:serve:production"
             }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/web-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "web-page-donate": {
+      "root": "libs/web-page-donate",
+      "sourceRoot": "libs/web-page-donate/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/web-page-donate/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-page-donate"],
+          "options": {
+            "jestConfig": "libs/web-page-donate/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-page-landing": {
+      "root": "libs/web-page-landing",
+      "sourceRoot": "libs/web-page-landing/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/web-page-landing/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-page-landing"],
+          "options": {
+            "jestConfig": "libs/web-page-landing/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-page-my-fundraisers": {
+      "root": "libs/web-page-my-fundraisers",
+      "sourceRoot": "libs/web-page-my-fundraisers/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web-page-my-fundraisers/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-page-my-fundraisers"],
+          "options": {
+            "jestConfig": "libs/web-page-my-fundraisers/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-page-new-fundraiser": {
+      "root": "libs/web-page-new-fundraiser",
+      "sourceRoot": "libs/web-page-new-fundraiser/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web-page-new-fundraiser/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-page-new-fundraiser"],
+          "options": {
+            "jestConfig": "libs/web-page-new-fundraiser/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-page-view-fundraiser": {
+      "root": "libs/web-page-view-fundraiser",
+      "sourceRoot": "libs/web-page-view-fundraiser/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web-page-view-fundraiser/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-page-view-fundraiser"],
+          "options": {
+            "jestConfig": "libs/web-page-view-fundraiser/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-ui-fundraiser-paper": {
+      "root": "libs/web-ui-fundraiser-paper",
+      "sourceRoot": "libs/web-ui-fundraiser-paper/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/web-ui-fundraiser-paper/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-ui-fundraiser-paper"],
+          "options": {
+            "jestConfig": "libs/web-ui-fundraiser-paper/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-ui-layout": {
+      "root": "libs/web-ui-layout",
+      "sourceRoot": "libs/web-ui-layout/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/web-ui-layout/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/web-ui-layout"],
+          "options": {
+            "jestConfig": "libs/web-ui-layout/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
@@ -120,5 +736,5 @@
       }
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "web-app"
 }

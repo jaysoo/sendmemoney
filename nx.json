@@ -1,7 +1,7 @@
 {
-  "npmScope": "givememoney",
+  "npmScope": "sendmemoney",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": {
@@ -27,12 +27,79 @@
     ]
   },
   "projects": {
-    "web": {
-      "tags": []
+    "api-donations": {
+      "tags": ["platform:node"]
     },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
+    "api-file-upload": {
+      "tags": ["platform:node"]
+    },
+    "api-fundraisers": {
+      "tags": ["platform:node"]
+    },
+    "backend-app": {
+      "tags": ["platform:node"]
+    },
+    "data-access-api": {
+      "tags": ["platform:browser", "platform:mobile"]
+    },
+    "mobile-app": {
+      "tags": ["platform:mobile"]
+    },
+    "mobile-app-e2e": {
+      "tags": ["platform:mobile"],
+      "implicitDependencies": ["mobile-app"]
+    },
+    "mobile-screen-details": {
+      "tags": ["platform:mobile"]
+    },
+    "mobile-screen-donate": {
+      "tags": ["platform:mobile"]
+    },
+    "mobile-screen-landing": {
+      "tags": ["platform:mobile"]
+    },
+    "shared-contexts-api-context": {
+      "tags": ["platform:browser", "platform:mobile"]
+    },
+    "shared-formatters-currency": {
+      "tags": ["platform:all"]
+    },
+    "shared-hooks-use-boolean": {
+      "tags": ["platform:browser", "platform:mobile"]
+    },
+    "shared-models-donation": {
+      "tags": ["platform:all"]
+    },
+    "shared-models-fundraiser": {
+      "tags": ["platform:all"]
+    },
+    "web-app": {
+      "tags": ["platform:browser"]
+    },
+    "web-app-e2e": {
+      "tags": ["platform:browser"],
+      "implicitDependencies": ["web-app"]
+    },
+    "web-page-donate": {
+      "tags": ["platform:browser"]
+    },
+    "web-page-landing": {
+      "tags": ["platform:browser"]
+    },
+    "web-page-my-fundraisers": {
+      "tags": ["platform:browser"]
+    },
+    "web-page-new-fundraiser": {
+      "tags": ["platform:browser"]
+    },
+    "web-page-view-fundraiser": {
+      "tags": ["platform:browser"]
+    },
+    "web-ui-fundraiser-paper": {
+      "tags": ["platform:browser"]
+    },
+    "web-ui-layout": {
+      "tags": ["platform:browser"]
     }
   }
 }

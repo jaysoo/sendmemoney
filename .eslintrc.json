@@ -13,8 +13,16 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "platform:node",
+                "onlyDependOnLibsWithTags": ["platform:all", "platform:node"]
+              },
+              {
+                "sourceTag": "platform:browser",
+                "onlyDependOnLibsWithTags": ["platform:all", "platform:browser"]
+              },
+              {
+                "sourceTag": "platform:mobile",
+                "onlyDependOnLibsWithTags": ["platform:all", "platform:mobile"]
               }
             ]
           }
