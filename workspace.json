@@ -10,7 +10,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/api-donations/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -20,7 +21,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:node"]
     },
     "api-file-upload": {
       "root": "libs/api-file-upload",
@@ -31,7 +33,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/api-file-upload/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -41,7 +44,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:node"]
     },
     "api-fundraisers": {
       "root": "libs/api-fundraisers",
@@ -52,7 +56,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/api-fundraisers/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -62,7 +67,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:node"]
     },
     "backend-app": {
       "root": "apps/backend-app",
@@ -102,7 +108,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/backend-app/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -133,7 +140,8 @@
             "command": "bash apps/backend-app/scripts/mongodb-stop.sh"
           }
         }
-      }
+      },
+      "tags": ["platform:node"]
     },
     "data-access-api": {
       "root": "libs/data-access-api",
@@ -144,7 +152,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/data-access-api/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -154,7 +163,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser", "platform:mobile"]
     },
     "mobile-app": {
       "root": "apps/mobile-app",
@@ -218,7 +228,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/mobile-app/**/*.{ts,tsx,js,jsx}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -228,7 +239,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:mobile"]
     },
     "mobile-app-e2e": {
       "root": "apps/mobile-app-e2e",
@@ -283,9 +295,12 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/mobile-app-e2e/**/*.{ts,tsx,js,jsx}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": ["platform:mobile"],
+      "implicitDependencies": ["mobile-app"]
     },
     "mobile-screen-details": {
       "root": "libs/mobile-screen-details",
@@ -296,7 +311,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/mobile-screen-details/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -306,7 +322,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:mobile"]
     },
     "mobile-screen-donate": {
       "root": "libs/mobile-screen-donate",
@@ -317,7 +334,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/mobile-screen-donate/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -327,7 +345,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:mobile"]
     },
     "mobile-screen-landing": {
       "root": "libs/mobile-screen-landing",
@@ -338,7 +357,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/mobile-screen-landing/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -348,7 +368,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:mobile"]
     },
     "shared-contexts-api-context": {
       "root": "libs/shared-contexts/api-context",
@@ -361,7 +382,8 @@
             "lintFilePatterns": [
               "libs/shared-contexts/api-context/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -371,7 +393,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser", "platform:mobile"]
     },
     "shared-formatters-currency": {
       "root": "libs/shared-formatters/currency",
@@ -382,7 +405,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared-formatters/currency/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -392,7 +416,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:all"]
     },
     "shared-hooks-use-boolean": {
       "root": "libs/shared-hooks/use-boolean",
@@ -403,7 +428,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared-hooks/use-boolean/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -413,7 +439,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser", "platform:mobile"]
     },
     "shared-models-donation": {
       "root": "libs/shared-models/donation",
@@ -424,7 +451,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared-models/donation/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -434,7 +462,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:all"]
     },
     "shared-models-fundraiser": {
       "root": "libs/shared-models/fundraiser",
@@ -445,7 +474,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared-models/fundraiser/**/*.ts"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -455,7 +485,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:all"]
     },
     "web-app": {
       "root": "apps/web-app",
@@ -523,7 +554,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/web-app/**/*.{ts,tsx,js,jsx}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -533,7 +565,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-app-e2e": {
       "root": "apps/web-app-e2e",
@@ -557,9 +590,12 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/web-app-e2e/**/*.{js,ts}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": ["platform:browser"],
+      "implicitDependencies": ["web-app"]
     },
     "web-page-donate": {
       "root": "libs/web-page-donate",
@@ -570,7 +606,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/web-page-donate/**/*.{ts,tsx,js,jsx}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -580,7 +617,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-page-landing": {
       "root": "libs/web-page-landing",
@@ -591,7 +629,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/web-page-landing/**/*.{ts,tsx,js,jsx}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -601,7 +640,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-page-my-fundraisers": {
       "root": "libs/web-page-my-fundraisers",
@@ -614,7 +654,8 @@
             "lintFilePatterns": [
               "libs/web-page-my-fundraisers/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -624,7 +665,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-page-new-fundraiser": {
       "root": "libs/web-page-new-fundraiser",
@@ -637,7 +679,8 @@
             "lintFilePatterns": [
               "libs/web-page-new-fundraiser/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -647,7 +690,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-page-view-fundraiser": {
       "root": "libs/web-page-view-fundraiser",
@@ -660,7 +704,8 @@
             "lintFilePatterns": [
               "libs/web-page-view-fundraiser/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -670,7 +715,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-ui-fundraiser-paper": {
       "root": "libs/web-ui-fundraiser-paper",
@@ -683,7 +729,8 @@
             "lintFilePatterns": [
               "libs/web-ui-fundraiser-paper/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -693,7 +740,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["platform:browser"]
     },
     "web-ui-layout": {
       "root": "libs/web-ui-layout",
@@ -704,7 +752,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/web-ui-layout/**/*.{ts,tsx,js,jsx}"]
-          }
+          },
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -714,27 +763,8 @@
             "passWithNoTests": true
           }
         }
-      }
-    }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "scss",
-        "linter": "eslint",
-        "babel": true
       },
-      "component": {
-        "style": "scss"
-      },
-      "library": {
-        "style": "scss",
-        "linter": "eslint"
-      }
+      "tags": ["platform:browser"]
     }
-  },
-  "defaultProject": "web-app"
+  }
 }

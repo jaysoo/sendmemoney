@@ -15,6 +15,7 @@
     "@react-navigation/stack": "*",
     "react-query": "*",
     "ky": "*",
-    "react-native-config": "*"
+    "react-native-config": "*",
+    "react-native-svg": "*"
   }
 }
